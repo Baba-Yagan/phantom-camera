@@ -213,14 +213,28 @@ func visibility_check() -> void:
 	if not _priority_override_button.pressed.is_connected(_select_override_pcam):
 		_priority_override_button.pressed.connect(_select_override_pcam)
 
-
 func _get_camera_2d() -> Camera2D:
 	var camerasGroupName = "__cameras_%d" % EditorInterface.get_edited_scene_root().get_viewport().get_viewport_rid().get_id()
+	var edited_scene_root = EditorInterface.get_edited_scene_root()
+	
+	if edited_scene_root == null:
+		return null
+	
+	var viewport = edited_scene_root.get_viewport()
+	if viewport == null:
+		return null
+	
+	var viewport_rid = viewport.get_viewport_rid()
+	if viewport_rid == null:
+		return null
+	
+	var camerasGroupName = "__cameras_%d" % viewport_rid.get_id()
 	var cameras = get_tree().get_nodes_in_group(camerasGroupName)
 
 	for camera in cameras:
 		if camera is Camera2D and camera.is_current:
 			return camera
+	
 	return null
 
 
