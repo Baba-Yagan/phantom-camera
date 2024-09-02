@@ -214,7 +214,6 @@ func visibility_check() -> void:
 		_priority_override_button.pressed.connect(_select_override_pcam)
 
 func _get_camera_2d() -> Camera2D:
-	var camerasGroupName = "__cameras_%d" % EditorInterface.get_edited_scene_root().get_viewport().get_viewport_rid().get_id()
 	var edited_scene_root = EditorInterface.get_edited_scene_root()
 	
 	if edited_scene_root == null:
